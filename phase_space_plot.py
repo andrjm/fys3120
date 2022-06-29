@@ -41,39 +41,38 @@ def Hamiltons_Equations(t, qp):
 
 # Function determining Hamilton's equations by differentiating H
 def Equations_of_Motion(t, alphabeta):
-    b = 1; l = 1; g = 10; # Parameters that must be specified
+    b = 0.2; l = 1; g = 10; # Parameters that must be specified
 
     alpha, beta = alphabeta
-    alpha_dot = b*l/m*alpha - g*np.sin(beta)
+    alpha_dot = -(b*l/m)*alpha - g*np.sin(beta)
     beta_dot = alpha
 
     return np.array([alpha_dot, beta_dot])
 
 
-
 # Reading input file: Recovering initial values (IVs), number of IVs and mass parameter
 init, length, m = read_file('input.txt')
-#print(init[:,0])
-#print(Equations_of_Motion(1, init[:,0]))
+
+
 # Defining time interval
-time_span = [0, 15]
-t = np.linspace(0,15,100)
+time_span = [0, 30]
+t = np.linspace(0,30,1000)
 
 
-# Solving Hamilton's equations for each set of IVs (and storing them)
+# Solving the equations of motion for each set of IVs (and storing them)
 solution = np.zeros((length, 2, len(t)))
 for i in range(length):
     sol = solve_ivp(Equations_of_Motion, time_span, y0 = init[:,i], t_eval = t)
     solution[i, 0] = sol.y[0]
     solution[i, 1] = sol.y[1]
-    print(sol.y[0], sol.y[1])
 
     # Plotting solutions q & p for each set of IVs
-    plt.plot(sol.y[1], sol.y[0], label=rf'$\alpha_0 =$ {init[0,i]}, $\beta_0 =$ {init[1,i]}')
-    #plt.plot(sol.t, sol.y[1])
-    #plt.arrow(sol.y[0, 0], sol.y[1, 0], sol.y[0, 1], sol.y[1, 1]-sol.y[1, 0], shape='full', lw=0, length_includes_head=True, head_width=.05)
+    plt.plot(sol.y[1], sol.y[0], label=rf'$\theta_0 =$ {init[1,i]}, '+r'$\dot{\theta}_0 =$'+f' {init[0,i]}')
+    #plt.arrow(sol.y[1, 0], sol.y[0, 0], sol.y[1, 1], sol.y[0, 1], lw=0, shape='full', length_includes_head=True, head_width=.05, head_starts_at_zero=True)
     plt.legend()
 
-plt.ylabel(r'$\dot{\theta}(t)$')
-plt.xlabel(r'$\theta(t)$')
+plt.ylabel(r'$\dot{\theta}(t)$', fontsize=15)
+plt.xlabel(r'$\theta(t)$', fontsize=15)
+plt.title(r'1D pendulum with damping', fontsize=20)
+#plt.savefig(f'phasespace.pdf')
 plt.show()

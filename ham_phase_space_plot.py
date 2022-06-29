@@ -53,8 +53,8 @@ def Flow_Field():
 
 
 # Defining linspaces for theta coordinate values & conjugate momentum values
-q = np.linspace(np.pi/2, 0, 101)
-p = np.linspace(0, 10, 101)
+q = np.linspace(-np.pi/2, np.pi/2, 101)
+p = np.linspace(-10, 10, 101)
 
 
 # Creating a meshgrid of the theta & conjugate momentum values
