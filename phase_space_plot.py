@@ -1,3 +1,7 @@
+'''
+Put stuff here that shows what the thing does
+'''
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
@@ -17,7 +21,7 @@ def read_file(filename):
     infile.close()
     return init, length
 
-
+# This is too abstract for Hamltions equations, analytical mechanics symbols shpuld be used (q,p), the symbols must not become a barrier to understanding
 # Determining Hamilton's equations
 def Equations_of_Motion(t, alphabeta):
     m = 1; b = 0.2; l = 1; g = 10; # Parameters that must be specified
