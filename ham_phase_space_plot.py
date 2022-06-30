@@ -14,7 +14,7 @@ def Hamiltonian(q, p, arg):
         return p**2/(2*m*l**2) + m*g*l*(1-np.cos(q))
 
 
-# Function determining Hamilton's equations by differentiating H
+# Determining Hamilton's equations by differentiating H using sympy
 def Hamiltons_Equations(qp):
     q, p = symbols('q p') # Declaring q & p as sympy symbols
 
@@ -29,7 +29,7 @@ def Hamiltons_Equations(qp):
 
 
 # Defining linspaces for theta coordinate values & conjugate momentum values
-q = np.linspace(-np.pi/2, np.pi/2, 101)
+q = np.linspace(-2*np.pi, 2*np.pi, 101)
 p = np.linspace(-10, 10, 101)
 
 
@@ -40,8 +40,6 @@ Z = Hamiltonian(X, Y, 'numpy')
 # Computing derivatives
 u = np.empty_like(X)
 v = np.empty_like(Y)
-
-
 u, v = Hamiltons_Equations(np.array([X, Y]))
 
 
@@ -53,5 +51,5 @@ plt.xlabel(r'$\theta(t)$', fontsize=15)
 plt.ylabel(r'$p_{\theta}(t)$', fontsize=15)
 plt.title(r'Simple 1D pendulum', fontsize=20)
 plt.tight_layout()
-fig.savefig(f'streamplot.pdf')
+fig.savefig(f'ham_phasespace.pdf')
 plt.close()

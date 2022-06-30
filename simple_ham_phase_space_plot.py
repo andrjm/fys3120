@@ -10,11 +10,11 @@ def Hamiltonian(q, p):
     return p**2/(2*m*l**2) + m*g*l*(1-np.cos(q))
 
 
-# Function determining Hamilton's equations by differentiating H
+# Determining Hamilton's equations
 def Hamiltons_Equations(qp):
     m = 1; g = 10; l = 1
     q, p = qp
-    q_dot = p/m/l**2
+    q_dot = p/(m*l**2)
     p_dot = -m*g*l*np.sin(q)
     return np.array([q_dot, p_dot])
 
@@ -35,7 +35,7 @@ v = np.empty_like(Y)
 u, v = Hamiltons_Equations(np.array([X, Y]))
 
 
-# Creating the plot
+# Making a stream plot of the Hamiltonian
 fig, ax = plt.subplots()
 strm = ax.streamplot(X, Y, u, v, color=Z, linewidth=1, cmap='viridis')
 fig.colorbar(strm.lines, label=r'$H(\theta, p_{\theta})$')
@@ -43,5 +43,5 @@ plt.xlabel(r'$\theta(t)$', fontsize=15)
 plt.ylabel(r'$p_{\theta}(t)$', fontsize=15)
 plt.title(r'Simple 1D pendulum', fontsize=20)
 plt.tight_layout()
-fig.savefig(f'streamplot.pdf')
+fig.savefig(f'ham_phasespace.pdf')
 plt.close()
