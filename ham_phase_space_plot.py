@@ -28,30 +28,6 @@ def Hamiltons_Equations(qp):
     return np.array([q_dot(qp[1]), p_dot(qp[0])])
 
 
-# Making a stream plot of the Hamiltonian
-def Flow_Field():
-    # Computing derivatives
-    u = np.empty_like(X)
-    v = np.empty_like(Y)
-
-    for i in range(X.shape[0]):
-        for j in range(Y.shape[1]):
-            u[i,j], v[i,j] = Hamiltons_Equations(np.array([X[i,j], Y[i,j]]))
-
-    # Creating the plot
-    fig, ax = plt.subplots()
-    strm = ax.streamplot(X, Y, u, v, color=Z, linewidth=1, cmap='viridis')
-    fig.colorbar(strm.lines, label=r'$H(\theta, p_{\theta})$')
-    plt.xlabel(r'$\theta(t)$', fontsize=15)
-    plt.ylabel(r'$p_{\theta}(t)$', fontsize=15)
-    plt.title(r'Simple 1D pendulum', fontsize=20)
-    plt.tight_layout()
-    fig.savefig(f'streamplot.pdf')
-    plt.close()
-
-    return None
-
-
 # Defining linspaces for theta coordinate values & conjugate momentum values
 q = np.linspace(-np.pi/2, np.pi/2, 101)
 p = np.linspace(-10, 10, 101)
@@ -61,5 +37,21 @@ p = np.linspace(-10, 10, 101)
 X, Y = np.meshgrid(q, p)
 Z = Hamiltonian(X, Y, 'numpy')
 
+# Computing derivatives
+u = np.empty_like(X)
+v = np.empty_like(Y)
 
-Flow_Field()
+
+u, v = Hamiltons_Equations(np.array([X, Y]))
+
+
+# Making a stream plot of the Hamiltonian
+fig, ax = plt.subplots()
+strm = ax.streamplot(X, Y, u, v, color=Z, linewidth=1, cmap='viridis')
+fig.colorbar(strm.lines, label=r'$H(\theta, p_{\theta})$')
+plt.xlabel(r'$\theta(t)$', fontsize=15)
+plt.ylabel(r'$p_{\theta}(t)$', fontsize=15)
+plt.title(r'Simple 1D pendulum', fontsize=20)
+plt.tight_layout()
+fig.savefig(f'streamplot.pdf')
+plt.close()
