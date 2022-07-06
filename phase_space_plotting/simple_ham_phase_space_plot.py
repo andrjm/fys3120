@@ -19,12 +19,12 @@ def Hamiltons_Equations(qp):
     return np.array([q_dot, p_dot])
 
 
-# Defining linspaces for theta coordinate values & conjugate momentum values
-q = np.linspace(-np.pi/2, np.pi/2, 101)
+# Defining linspaces for coordinate values & conjugate momentum values
+q = np.linspace(-2*np.pi, 2*np.pi, 101)
 p = np.linspace(-10, 10, 101)
 
 
-# Creating a meshgrid of the theta & conjugate momentum values
+# Creating a meshgrid of the coordinate & conjugate momentum values
 X, Y = np.meshgrid(q, p)
 Z = Hamiltonian(X, Y)
 
@@ -38,9 +38,9 @@ u, v = Hamiltons_Equations(np.array([X, Y]))
 # Making a stream plot of the Hamiltonian
 fig, ax = plt.subplots()
 strm = ax.streamplot(X, Y, u, v, color=Z, linewidth=1, cmap='viridis')
-fig.colorbar(strm.lines, label=r'$H(\theta, p_{\theta})$')
-plt.xlabel(r'$\theta(t)$', fontsize=15)
-plt.ylabel(r'$p_{\theta}(t)$', fontsize=15)
+fig.colorbar(strm.lines, label=r'$H(q, p)$')
+plt.xlabel(r'$q(t)$', fontsize=15)
+plt.ylabel(r'$p(t)$', fontsize=15)
 plt.title(r'Simple 1D pendulum', fontsize=20)
 plt.tight_layout()
 fig.savefig(f'ham_phasespace.pdf')
