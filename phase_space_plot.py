@@ -8,7 +8,7 @@ from scipy.integrate import solve_ivp
 from sympy import symbols, diff, lambdify
 
 
-# Function that reads file containing initial values (& mass)
+# Function that reads file containing initial values
 def read_file(filename):
     infile = open(filename, 'r')
     lines = infile.readlines()
