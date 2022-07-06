@@ -1,3 +1,6 @@
+'''
+Put stuff here that shows what the thing does
+'''
 # Simple 1D pendulum example
 
 import numpy as np
