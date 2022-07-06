@@ -47,7 +47,8 @@ for i in range(length):
     sol = solve_ivp(Equations_of_Motion, time_span, y0 = init[:,i], t_eval = t)
 
     # Plotting solutions q & p for each set of IVs
-    plt.plot(sol.y[1], sol.y[0], label=rf'$\theta_0 =$ {init[1,i]}, '+r'$\dot{\theta}_0 =$'+f' {init[0,i]}')
+    plt.plot(sol.y[1], sol.y[0], label=rf'$\theta_0 =$ {init[1,i]}, '+
+    r'$\dot{\theta}_0 =$'+f' {init[0,i]}')
     plt.legend()
 
 plt.ylabel(r'$\dot{\theta}(t)$', fontsize=15)
